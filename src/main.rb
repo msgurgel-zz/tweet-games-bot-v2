@@ -20,11 +20,9 @@ twitter = Twitter::REST::Client.new do |config|
     config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
 end
 
-# Stream tweets?
-topics = ["@TweetGamesBot"]
-
-
 log.info("start listening for mentions...")
+
+topics = ["@TweetGamesBot"]
 begin
     stream.filter( track: topics.join(",") ) do |object|
         log.info(object.text) if object.is_a? Twitter::Tweet
@@ -33,4 +31,10 @@ begin
 rescue Interrupt
     stream.close
     log.info("shutting down")
+rescue JSON::ParserError => e
+    if e.message == "767: unexpected token at 'Exceeded connection limit for user'"
+        log.fatal("you just got rate limited! err = #{e}")
+    else
+        raise
+    end
 end
