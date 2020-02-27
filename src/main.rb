@@ -3,6 +3,7 @@ require 'dotenv/load'
 require 'logger'
 require 'twitter'
 
+$stdout.sync = true
 log = Logger.new(STDOUT)
 log.level = Logger::DEBUG
 
