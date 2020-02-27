@@ -1,6 +1,12 @@
 require 'dotenv/load'
-require 'twitter'
+
 require 'pry'
+require 'logger'
+
+require 'twitter'
+
+log = Logger.new(STDOUT)
+log.level = Logger::DEBUG
 
 stream = Twitter::Streaming::Client.new do |config|
     config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
@@ -19,6 +25,6 @@ end
 # Stream tweets?
 topics = ["@TweetGamesBot"]
 stream.filter( track: topics.join(",") ) do |object|
-    puts object.text if object.is_a? Twitter::Tweet
+    log.info(object.text) if object.is_a? Twitter::Tweet
     twitter.update("@#{object.user.screen_name} Thanks for mentioning me ♥️🤖", in_reply_to_status: object)
 end
