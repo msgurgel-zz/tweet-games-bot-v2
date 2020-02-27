@@ -1,8 +1,6 @@
 require 'dotenv/load'
 
-require 'pry'
 require 'logger'
-
 require 'twitter'
 
 log = Logger.new(STDOUT)
