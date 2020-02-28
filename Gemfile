@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ ruby '2.6.5'
+
 gem 'dotenv-rails'
 gem 'twitter'
 
