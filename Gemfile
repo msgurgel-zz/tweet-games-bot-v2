@@ -11,3 +11,8 @@ group :development, :test do
     gem 'pry-stack_explorer'
     gem 'pry-byebug'
 end
+
+group :test do
+    gem 'minitest'
+    gem 'minitest-reporters'
+end
