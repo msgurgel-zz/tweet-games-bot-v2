@@ -2,7 +2,7 @@ require "minitest/autorun"
 require "minitest/reporters"
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
 
-require_relative "connect_four"
+require_relative "../../lib/connect_four/connect_four"
 
 class ConnectFourTest < Minitest::Test
     def setup
