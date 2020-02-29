@@ -26,7 +26,7 @@ log.info("start listening for mentions...")
 topics = ["@TweetGamesBot"]
 begin
     stream.filter( track: topics.join(",") ) do |object|
-        log.info(object.text) if object.is_a? Twitter::Tweet
+        log.info("#{object.user.screen_name} said: #{object.text}") if object.is_a? Twitter::Tweet
         timeNow = Time.now.strftime("%H:%M:%S")
         twitter.update("@#{object.user.screen_name} Thanks for mentioning me ♥️🤖 Time: #{timeNow}", in_reply_to_status: object)
     end
