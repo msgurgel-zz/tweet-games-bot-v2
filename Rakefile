@@ -7,4 +7,8 @@ Rake::TestTask.new do |task|
 end
 desc 'Run tests'
 
-task default: "test"
+task :run do
+    ruby 'app/main.rb'
+end
+desc 'Run the tweet-bot'
+task default: "run"
