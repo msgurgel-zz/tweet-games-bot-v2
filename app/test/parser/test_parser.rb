@@ -20,7 +20,13 @@ class ParserTest < Minitest::Test
 
         msg = Parser.parse("Let's see if I'm lucky: @TweetGamesBot, roll a d69")
         assert msg.match(/^Your d\d+ result was \d+$/)
-    end
+
+        msg = Parser.parse("@delart_sweet @TweetGamesBot it's roll d6, dude")
+        assert msg.match(/^Your d\d+ result was \d+$/)
+
+        msg = Parser.parse("@TweetGamesBot roll me a d89, bot")
+        assert msg.match(/^Your d\d+ result was \d+$/)
+   end
 
     def test_should_not_roll_pass_100
         msg = Parser.parse('roll d101')

@@ -53,8 +53,6 @@ begin
         msg = Parser.parse object.text
         twitter.update("@#{object.user.screen_name} #{msg}", in_reply_to_status: object)
         log.info("sending reply to #{object.user.screen_name}: #{msg}")
-
-        # twitter.update("@#{object.user.screen_name} Thanks for mentioning me ♥️🤖 Time: #{timeNow}", in_reply_to_status: object)
     end
 rescue JSON::ParserError => e
     if e.message == "767: unexpected token at 'Exceeded connection limit for user'"

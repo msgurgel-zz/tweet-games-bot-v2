@@ -17,7 +17,7 @@ module Parser
         roll_index = words.find_index('roll')
         if roll_index
             after_roll = words.slice(roll_index + 1, words.length)
-            dice = after_roll.select { |w| w.match(/^d\d+$/) }
+            dice = after_roll.select { |w| w.match(/d\d+/) }
 
             if !dice.empty?
                 # Extract number of dice
