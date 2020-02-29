@@ -1,1 +1,1 @@
-tweet-bot: bundle exec ruby src/main.rb
+tweet-bot: bundle exec ruby app/main.rb
