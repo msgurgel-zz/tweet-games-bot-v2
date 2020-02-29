@@ -2,6 +2,7 @@ require 'dotenv/load'
 
 require 'logger'
 require 'twitter'
+require_relative 'lib/parser/parser'
 
 # Turn off log buffering (for Heroku)
 $stdout.sync = true
@@ -48,7 +49,12 @@ begin
     stream.filter( track: topics.join(",") ) do |object|
         log.info("#{object.user.screen_name} said: #{object.text}") if object.is_a? Twitter::Tweet
         timeNow = Time.now.strftime("%H:%M:%S")
-        twitter.update("@#{object.user.screen_name} Thanks for mentioning me ♥️🤖 Time: #{timeNow}", in_reply_to_status: object)
+
+        msg = Parser.parse object.text
+        twitter.update("@#{object.user.screen_name} #{msg}", in_reply_to_status: object)
+        log.info("sending reply to #{object.user.screen_name}: #{msg}")
+
+        # twitter.update("@#{object.user.screen_name} Thanks for mentioning me ♥️🤖 Time: #{timeNow}", in_reply_to_status: object)
     end
 rescue JSON::ParserError => e
     if e.message == "767: unexpected token at 'Exceeded connection limit for user'"
