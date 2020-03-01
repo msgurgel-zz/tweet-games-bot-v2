@@ -1,0 +1,12 @@
+default: &default
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: tweet_bot_dev
+
+test: &test
+  <<: *default
+  database: tweet_bot_test
