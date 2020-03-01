@@ -2,7 +2,7 @@ require 'dotenv/load'
 
 require 'logger'
 require 'twitter'
-require_relative 'lib/parser/parser'
+require_relative '../lib/parser/parser'
 
 # Turn off log buffering (for Heroku)
 $stdout.sync = true
