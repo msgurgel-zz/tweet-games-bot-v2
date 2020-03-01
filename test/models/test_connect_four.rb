@@ -48,13 +48,13 @@ class ConnectFourTest < Minitest::Test
 
         connect4_full_col = ConnectFour.new(full_col)
 
-        assert_raises Exceptions::FullColumnError do
+        assert_raises FullColumnError do
             connect4_full_col.play(1,1)
         end
     end
 
     def test_play_should_raise_when_user_plays_out_of_turn
-        assert_raises Exceptions::PlayOutOfTurnError do
+        assert_raises PlayOutOfTurnError do
             @connect4.play(2, 1)
         end
     end
