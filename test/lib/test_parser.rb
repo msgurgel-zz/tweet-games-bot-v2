@@ -2,7 +2,7 @@ require "minitest/autorun"
 require "minitest/reporters"
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
 
-require_relative '../../lib/parser/parser'
+require_relative '../../lib/parser'
 
 class ParserTest < Minitest::Test
     def test_should_parse_roll

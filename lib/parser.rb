@@ -1,4 +1,4 @@
-require_relative '../dice/dice'
+require_relative './dice'
 
 module Parser
     def Parser.parse(tweet)

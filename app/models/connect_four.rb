@@ -1,4 +1,4 @@
-require_relative 'exceptions'
+require_relative '../../lib/exceptions'
 
 class ConnectFour
     # Constants
@@ -96,14 +96,14 @@ class ConnectFour
 
     def play(player, column)
         if !is_player_turn?(player)
-            raise PlayOutOfTurnError.new("it's not your turn!")
+            raise Exceptions::PlayOutOfTurnError.new("it's not your turn!")
         end
 
         column -= 1 # To deal with zero-base index on array
 
         # Check if column is full
         if @board[0][column].to_i > 0
-            raise FullColumnError.new("column #{column + 1} is full!")
+            raise Exceptions::FullColumnError.new("column #{column + 1} is full!")
         end
 
         # Play the move

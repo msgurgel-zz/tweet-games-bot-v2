@@ -2,7 +2,7 @@ require "minitest/autorun"
 require "minitest/reporters"
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
 
-require_relative '../../lib/dice/dice'
+require_relative '../../lib/dice'
 
 class DiceTest < Minitest::Test
     def test_should_roll_dice
