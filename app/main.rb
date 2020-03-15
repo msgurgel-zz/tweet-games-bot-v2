@@ -2,16 +2,17 @@ require 'dotenv/load'
 
 require 'logger'
 require 'twitter'
-require_relative '../lib/parser/parser'
+require_relative '../lib/parser'
+
+# Setup connection to the database
+require 'active_record'
+db_config = YAML.load_file('db/config.yml')
+ActiveRecord::Base.establish_connection(db_config[ENV['RAILS_ENV']])
 
 # Turn off log buffering (for Heroku)
 $stdout.sync = true
 log = Logger.new(STDOUT)
 log.level = Logger::DEBUG
-
-def shut_down
-
-end
 
 # Connect to Twitter
 stream = Twitter::Streaming::Client.new do |config|

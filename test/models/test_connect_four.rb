@@ -1,7 +1,4 @@
-require "minitest/autorun"
-require "minitest/reporters"
-Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
-
+require_relative '../test_helper'
 require_relative "../../app/models/connect_four"
 
 class ConnectFourTest < Minitest::Test
@@ -14,11 +11,11 @@ class ConnectFourTest < Minitest::Test
         '1212021' +
         '1221112'
 
-        @connect4 = ConnectFour.new(@test_board)
+        @connect4 = ConnectFour.new(board: @test_board)
     end
 
     def test_board_is_init_properly
-        assert_equal @test_board, @connect4.board_string
+        assert_equal @test_board, @connect4.update_board_string
         assert @connect4.player1_turn?
     end
 
@@ -33,20 +30,20 @@ class ConnectFourTest < Minitest::Test
         '1212021' +
         '1221112'
 
-        assert_equal expected_board, @connect4.board_string
+        assert_equal expected_board, @connect4.update_board_string
         assert @connect4.player2_turn?
     end
 
     def test_should_not_drop_disc_in_full_col
         full_col =
+        '2000000' +
         '1000000' +
-        '1001000' +
-        '2011001' +
-        '1022002' +
-        '1212021' +
-        '1221112'
+        '2000000' +
+        '1000000' +
+        '2000000' +
+        '1000000'
 
-        connect4_full_col = ConnectFour.new(full_col)
+        connect4_full_col = ConnectFour.new(board: full_col)
 
         assert_raises FullColumnError do
             connect4_full_col.play(1,1)
@@ -87,7 +84,7 @@ class ConnectFourTest < Minitest::Test
         '1000200' +
         '1000200'
 
-        c4 = ConnectFour.new(win_board)
+        c4 = ConnectFour.new(board: win_board)
         winner = c4.play(1,1)
         assert_equal 1, winner
     end
@@ -101,7 +98,7 @@ class ConnectFourTest < Minitest::Test
         '0000020' +
         '1110020'
 
-        c4 = ConnectFour.new(win_board)
+        c4 = ConnectFour.new(board: win_board)
         winner = c4.play(1,4)
         assert_equal 1, winner
     end
@@ -111,11 +108,11 @@ class ConnectFourTest < Minitest::Test
         '0000000' +
         '0000000' +
         '0000000' +
-        '0011000' +
-        '0122000' +
-        '1121000'
+        '0012000' +
+        '0121000' +
+        '1212200'
 
-        c4 = ConnectFour.new(win_board)
+        c4 = ConnectFour.new(board: win_board)
         winner = c4.play(1,4)
         assert_equal 1, winner
     end
@@ -129,7 +126,7 @@ class ConnectFourTest < Minitest::Test
         '0122100' +
         '1121210'
 
-        c4 = ConnectFour.new(win_board)
+        c4 = ConnectFour.new(board: win_board)
         winner = c4.play(1,3)
         assert_equal 1, winner
     end
