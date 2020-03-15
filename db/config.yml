@@ -1,12 +1,13 @@
-default: &default
+development:
   adapter: postgresql
+  enconding: unicode
+  database: tweet_bot_dev
   pool: 5
   timeout: 5000
 
-development:
-  <<: *default
-  database: tweet_bot_dev
-
 test: &test
-  <<: *default
+  adapter: postgresql
+  enconding: unicode
   database: tweet_bot_test
+  pool: 5
+  timeout: 5000
