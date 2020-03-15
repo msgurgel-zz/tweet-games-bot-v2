@@ -79,7 +79,7 @@ GEM
       ruby-progressbar
     multipart-post (2.1.1)
     naught (1.1.0)
-    nokogiri (1.10.8)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     pg (1.2.2)
     pry (0.12.2)
