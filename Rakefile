@@ -1,6 +1,5 @@
 require 'rake/testtask'
-require 'standalone_migrations'
-StandaloneMigrations::Tasks.load_tasks
+require 'tasks/standalone_migrations'
 
 # Set database configurations based on environment
 StandaloneMigrations::Configurator.environments_config do |env|
@@ -19,16 +18,37 @@ StandaloneMigrations::Configurator.environments_config do |env|
 
       nil
     end
-  end
+end
 
 desc 'Run tests'
+task :test do
+    # Prepare database
+    Rails.env = ENV['RAILS_ENV']= 'test'
+    Rake::Task['db:drop'].invoke
+    Rake::Task['db:create'].invoke
+    Rake::Task['db:schema:load'].invoke
+    Rake::Task['db:seed'].invoke
+    ActiveRecord::Base.establish_connection(:test)
+    Rake::Task['db:migrate'].invoke
+    Rake::Task['db:setup'].invoke
+    Rake::Task['db:fixtures:load'].invoke
+
+    # Run the tests!
+    Rake::Task['test_task'].invoke
+end
+
+desc 'Run tests with no prep (to prep before running test, use rake test)'
 Rake::TestTask.new do |task|
     task.test_files = FileList['test/**/test_*.rb']
+    task.verbose = true
+    task.name = 'test_task'
 end
 
 desc 'Run the tweet-bot'
 task :run do
+    Rails.env = ENV['RAILS_ENV']
+    Rake::Task['db:create'].invoke
+    Rake::Task['db:schema:load'].invoke
     ruby 'app/main.rb'
 end
 task default: "run"
-
