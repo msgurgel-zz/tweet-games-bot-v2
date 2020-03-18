@@ -1,8 +1,5 @@
-require "minitest/autorun"
-require "minitest/reporters"
-Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
-
-require_relative '../../lib/parser/parser'
+require_relative '../test_helper'
+require_relative '../../lib/parser'
 
 class ParserTest < Minitest::Test
     def test_should_parse_roll
@@ -26,7 +23,7 @@ class ParserTest < Minitest::Test
 
         msg = Parser.parse("@TweetGamesBot roll me a d89, bot")
         assert msg.match(/^Your d\d+ result was \d+$/)
-   end
+    end
 
     def test_should_not_roll_pass_100
         msg = Parser.parse('roll d101')

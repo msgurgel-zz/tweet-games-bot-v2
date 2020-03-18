@@ -3,7 +3,10 @@ source 'https://rubygems.org'
  ruby '2.6.5'
 
 gem 'dotenv-rails' # For reading .env files
-gem 'twitter'      # For communicating with the Twitter API
+gem 'twitter' # For communicating with the Twitter API
+gem 'activerecord' # ORM for the PostgreSQL db
+gem 'standalone_migrations', '~> 5.2','>= 5.2.7' # For database migrations
+gem 'pg' # PostgreSQL
 
 group :development, :test do
     # Use pry for debugging

@@ -57,3 +57,6 @@ build-iPhoneSimulator/
 
 # Environment files
 .env
+
+# Ruby Mine
+.idea/
