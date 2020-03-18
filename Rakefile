@@ -47,7 +47,6 @@ end
 desc 'Run the tweet-bot'
 task :run do
     Rails.env = ENV['RAILS_ENV']
-    Rake::Task['db:create'].invoke
     Rake::Task['db:schema:load'].invoke
     ruby 'app/main.rb'
 end
