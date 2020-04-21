@@ -130,4 +130,11 @@ class ConnectFourTest < Minitest::Test
         winner = c4.play(1,3)
         assert_equal 1, winner
     end
+
+    def test_should_not_play_when_game_is_finished
+        c4 = ConnectFour.new(status: 'complete')
+        assert_raises GameIsDoneError do
+            c4.play(1, 3)
+        end
+    end
 end

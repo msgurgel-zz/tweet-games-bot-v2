@@ -1,0 +1,9 @@
+default:
+  player1_id: 1
+  player2_id: 3
+  tweet_id: 'fixture_id'
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+  board: '000000000000000000000000000000000000000000'
+  status: 'active'
+

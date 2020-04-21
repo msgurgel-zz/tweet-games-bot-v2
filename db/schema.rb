@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 2020_03_01_185725) do
 
   create_table "connect_fours", force: :cascade do |t|
     t.string "board", null: false
+    t.string "tweet_id", null: false
+    t.string "status", null: false
     t.bigint "player1_id", null: false
     t.bigint "player2_id", null: false
     t.datetime "created_at", null: false
@@ -24,6 +26,7 @@ ActiveRecord::Schema.define(version: 2020_03_01_185725) do
     t.index ["player1_id", "player2_id"], name: "index_connect_fours_on_player1_id_and_player2_id", unique: true
     t.index ["player1_id"], name: "index_connect_fours_on_player1_id"
     t.index ["player2_id"], name: "index_connect_fours_on_player2_id"
+    t.index ["tweet_id"], name: "index_connect_fours_on_tweet_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

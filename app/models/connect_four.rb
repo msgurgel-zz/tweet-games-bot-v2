@@ -4,8 +4,13 @@ require_relative '../../lib/exceptions'
 class ConnectFour < ActiveRecord::Base
     belongs_to :player1, class_name: "User"
     belongs_to :player2, class_name: "User"
+
+    STATUS_OPTIONS = %w(active expired complete)
+
     validates :player1_id, presence: true
     validates :player2_id, presence: true
+    validates :tweet_id, presence: true
+    validates :status, presence: true, inclusion: { in: STATUS_OPTIONS }
 
     # Constants
     ROWS = 6
@@ -25,13 +30,18 @@ class ConnectFour < ActiveRecord::Base
 
         populate_board_array(attributes[:board])
         attributes[:board] = @board if attributes[:board].nil?
+        attributes[:status] = 'active' if attributes[:status].nil?
 
         super(attributes)
     end
 
+    def prepare_board
+        populate_board_array(self.board)
+    end
+
     # Updates and returns the current board_arr string representation
     def update_board_string
-        return board if @board_arr.nil?
+        return self.board if @board_arr.nil?
 
         str = ""
 
@@ -41,7 +51,7 @@ class ConnectFour < ActiveRecord::Base
             end
         end
 
-        @board_arr = str
+        self.board = str
         str
     end
 
@@ -101,6 +111,10 @@ class ConnectFour < ActiveRecord::Base
     end
 
     def play(player, column)
+        unless self.status == 'active'
+            raise GameIsDoneError.new('this game is finished or expired')
+        end
+
         unless is_player_turn?(player)
             raise PlayOutOfTurnError.new("it's not your turn!")
         end
@@ -124,6 +138,8 @@ class ConnectFour < ActiveRecord::Base
 
         # Add to the total number of moves played in this board
         @moves += 1
+
+        update_board_string
 
         # Check if someone won and return the result
         check_winner(disc_row, column) if @moves >= 7 # There cannot be winner before at least 7 moves where played in total
@@ -155,7 +171,7 @@ class ConnectFour < ActiveRecord::Base
 
             @moves = (ROWS * COLS) - slots.count('0')
         else
-            @board_arr = Array.new(ROWS){Array.new(COLS, 0)}
+            @board_arr = Array.new(ROWS){Array.new(COLS, '0')}
             @board = '0' * (ROWS * COLS)
             @moves = 0
         end
