@@ -1,9 +1,15 @@
 mateus:
-  username: '@mateus_tweets'
+  username: 'mateus_tweets'
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
 
 gabriel:
-  username: '@gurgelino'
+  username: 'gurgelino'
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
+
+sammy:
+  username: 'salani'
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+
